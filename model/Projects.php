@@ -1,5 +1,5 @@
 <?php namespace Model; use PDO;
-class Accounts{
+class Projects{
     protected $db;
 
     public function __construct($database)
@@ -7,20 +7,17 @@ class Accounts{
         $this->db = $database;
     }
 
-    public function getAllUsers()
+    public function create($data)
     {
-        $link = $this->db->openDbConnection();
+        $link = $this->db->openDbConnection($input);
 
-        $result = $link->query('SELECT alias, name FROM accounts ORDER BY id');
+        $query = 'INSERT INTO projects (name, author) VALUES (:name, :created_at, :author)';
+        $statement = $link->prepare($query);
+        $statement->bindValue(':name', $input['name'], PDO::PARAM_STR);
+        $statement->bindValue(':author', $input['author'], PDO::PARAM_STR);
+        $statement->execute();
 
-        $music = array();
-        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            $music[] = $row;
-        }
         $this->db->closeDbConnection($link);
-
-
-		return $music;
     }
 
     public function getUserById($id)

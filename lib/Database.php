@@ -1,7 +1,7 @@
 <?php
 class Database{
     protected $host = 'localhost';
-    protected $dbname = 'sms';
+    protected $dbname = 'peoject-manager';
     protected $user = 'zane';
     protected $password = '5245';
 
